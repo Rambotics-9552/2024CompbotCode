@@ -9,19 +9,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class DriveBase extends SubsystemBase {
 
 
   //creates the motors in code
-  private final WPI_VictorSPX m_leftMoter = new WPI_VictorSPX(Constants.drive.LEFT_MOTOR);
-  private final WPI_VictorSPX m_rightMoter = new WPI_VictorSPX(Constants.drive.RIGHT_MOTOR);
-  private final WPI_VictorSPX m_leftBackMotor = new WPI_VictorSPX(Constants.drive.REAR_LEFT_MOTOR);
-  private final WPI_VictorSPX m_rightBackMotor = new WPI_VictorSPX(Constants.drive.REAR_RIGHT_MOTOR);
+  private final CANSparkMax m_leftMoter = new CANSparkMax(Constants.drive.LEFT_MOTOR, MotorType.kBrushless);
+  private final CANSparkMax m_rightMoter = new CANSparkMax(Constants.drive.RIGHT_MOTOR, MotorType.kBrushless);
+  private final CANSparkMax m_leftBackMotor = new CANSparkMax(Constants.drive.REAR_LEFT_MOTOR, MotorType.kBrushless);
+  private final CANSparkMax m_rightBackMotor = new CANSparkMax(Constants.drive.REAR_RIGHT_MOTOR, MotorType.kBrushless);
   
   //puts the motors in groups for easier handling
   MotorControllerGroup m_LeftMotorGroup = new MotorControllerGroup(m_leftMoter, m_leftBackMotor);
@@ -33,11 +36,6 @@ public class DriveBase extends SubsystemBase {
 
   public DriveBase() {
 
-
-    m_leftMoter.setSafetyEnabled(false);
-    m_rightBackMotor.setSafetyEnabled(false);
-    m_rightMoter.setSafetyEnabled(false);
-    m_rightBackMotor.setSafetyEnabled(false);
 
     // inverts two motors so the drivetrain can run
     m_leftMoter.setInverted(true);
