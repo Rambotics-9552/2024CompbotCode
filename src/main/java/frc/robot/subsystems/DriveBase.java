@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -26,7 +25,7 @@ public class DriveBase extends SubsystemBase {
   private final CANSparkMax m_leftBackMotor = new CANSparkMax(Constants.drive.REAR_LEFT_MOTOR, MotorType.kBrushless);
   private final CANSparkMax m_rightBackMotor = new CANSparkMax(Constants.drive.REAR_RIGHT_MOTOR, MotorType.kBrushless);
   
-  //puts the motors in groups for easier handling
+  //puyts the motors in groups for easier handling
   MotorControllerGroup m_LeftMotorGroup = new MotorControllerGroup(m_leftMoter, m_leftBackMotor);
   MotorControllerGroup m_RightMotorGroup = new MotorControllerGroup(m_rightMoter, m_rightBackMotor);
 

@@ -10,7 +10,6 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveBase;
@@ -28,8 +27,6 @@ public class ArcadeDrive extends RunCommand {
   public ArcadeDrive(DriveBase drive, DoubleSupplier speed, DoubleSupplier rotation) {
     super(
       ()->{
-        SmartDashboard.putString("On", "true");
-
         drive.drive(
           MathUtil.applyDeadband(speed.getAsDouble(), 0.1)*Constants.drive.DRIVE_SPEED_MULTIPLYER,
           MathUtil.applyDeadband(rotation.getAsDouble(), 0.1)

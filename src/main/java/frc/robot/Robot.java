@@ -7,9 +7,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Axis;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.AutoRoutines.DriveForward;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.revFly;
+import frc.robot.commands.shootShooter;
+import frc.robot.commands.shootShooter;
+import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Shooter;
 
 
 /**
@@ -21,8 +34,45 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer;
 
+
+  private final DriveBase m_driveSubsystem = new DriveBase();
+  private final Shooter shooter = new Shooter();
+  private final revFly revFly = new revFly(shooter);
+  private final shootShooter shoot = new shootShooter(shooter);
+  //private NetworkTableEntry cameraSelection;
+
+  CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
+  CommandXboxController manipulatorJoystick = new CommandXboxController(Constants.MANIPULATOR_JOYSTICK);
+
+  /** The container for the robot. Contains subsystems, OI devices, and commands. 
+   * @return */
+    // Configure the button bindings
+  public Robot(){
+    configureButtonBindings();
+      
+    m_driveSubsystem.setDefaultCommand(
+      new ArcadeDrive(
+            m_driveSubsystem,
+            () -> ((-movementJoystick.getLeftTriggerAxis() + movementJoystick.getRightTriggerAxis())),
+            () -> (-movementJoystick.getLeftX())
+      ));
+    
+  }
+  private void configureButtonBindings() {
+    manipulatorJoystick.a().toggleOnTrue(revFly);
+    manipulatorJoystick.y().onTrue(shoot);
+    // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
+  }
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return new DriveForward(m_driveSubsystem);
+  }
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -31,7 +81,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
   }
 
   /**
@@ -66,7 +115,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

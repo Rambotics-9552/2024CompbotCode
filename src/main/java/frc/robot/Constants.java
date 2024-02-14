@@ -39,6 +39,19 @@ public final class Constants {
 
     public static final int MOVEMENT_JOYSTICK = 0;
     public static final int MANIPULATOR_JOYSTICK = 1;
+    public static final class Shooter{
+
+        public static final int Motor1Port=0;
+        public static final int Motor2Port=0;
+        public static final int indexMotor=0;
+        public static final int beamBrakePort = 0;
+
+
+        public static final double shootSpeaker=1;
+        public static final double shootAmp=0.2;
+        public static final double indexSpeed=0;
+        public static final int minimumSpeed = 60;
+    }
 
 
 }
