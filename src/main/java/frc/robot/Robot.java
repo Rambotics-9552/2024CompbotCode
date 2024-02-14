@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.AutoRoutines.DriveForward;
+
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -37,8 +38,12 @@ public class Robot extends TimedRobot {
   private final Shooter shooter = new Shooter();
   private final revFly revFly = new revFly(shooter);
 
+
   private final Intake Intake = new Intake();
   private final intake intake = new intake(Intake);
+
+  private final shootShooter shoot = new shootShooter(shooter);
+
   //private NetworkTableEntry cameraSelection;
 
   CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
@@ -60,7 +65,11 @@ public class Robot extends TimedRobot {
   }
   private void configureButtonBindings() {
     manipulatorJoystick.a().toggleOnTrue(revFly);
+
     manipulatorJoystick.b().toggleOnTrue(intake);
+
+    manipulatorJoystick.y().onTrue(shoot);
+
     // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
   }
   /**
