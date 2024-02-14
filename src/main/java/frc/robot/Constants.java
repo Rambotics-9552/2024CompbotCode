@@ -33,6 +33,14 @@ public final class Constants {
         public static final double AUTONOMOUS_FORWARD_SPEED = 0.6;
         public static final double AUTONOMOUS_BACK_SPEED = 0.4;
     }
+    
+
+    public static final class intake{
+        public static final int intakeMotor1Port=0;
+        public static final int intakeMotor2Port=0;
+        public static final int beamBrakePort = Shooter.beamBrakePort;
+        public static final double intakeSpeed = 0.5;
+    }
 
     
     
