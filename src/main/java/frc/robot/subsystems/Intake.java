@@ -29,9 +29,7 @@ public class Intake extends SubsystemBase{
         intakeMotors.set(Constants.intake.intakeSpeed);
     }
 
-    public void intakeBack(){
-        intakeMotors.set(Constants.intake.intakeSpeed);
-    }
+
 
     
 }

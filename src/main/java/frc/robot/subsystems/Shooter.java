@@ -46,4 +46,8 @@ public class Shooter extends SubsystemBase {
     public boolean getBeamBreak(){
         return beamBrake.get();
     }
+
+    public void intakeBack(){
+        shootMotors.set(Constants.Shooter.intakeSpeed);
+    }
 }

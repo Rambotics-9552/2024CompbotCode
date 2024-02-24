@@ -45,13 +45,13 @@ public class Robot extends TimedRobot {
   
   private final Shooter shooter = new Shooter();
 
-  private final revFly revFly = new revFly(shooter);
+  //private final revFly revFly = new revFly(shooter);
 
 
-  private final Intake Intake = new Intake();
-  private final intake intake = new intake(Intake);
+  //private final Intake Intake = new Intake();
+  //private final intake intake = new intake(Intake);
 
-  private final shootShooter shoot = new shootShooter(shooter);
+  //private final shootShooter shoot = new shootShooter(shooter);
 
   private final ClimbingArm cArm = new ClimbingArm();
   //private NetworkTableEntry cameraSelection;
@@ -77,8 +77,8 @@ public class Robot extends TimedRobot {
     manipulatorJoystick.a().whileTrue(new ClimbUp(cArm));
     manipulatorJoystick.b().whileTrue(new ClimbDown(cArm));
     manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
-    manipulatorJoystick.rightTrigger().onTrue(new shootIndex(shooter));
-    manipulatorJoystick.leftBumper().whileTrue(new intakeFromSource());
+    manipulatorJoystick.rightTrigger().onTrue(new shootShooter(shooter));
+    manipulatorJoystick.leftBumper().whileTrue(new intakeFromSource(shooter));
 
     // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
   }

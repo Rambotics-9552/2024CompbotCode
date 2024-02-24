@@ -46,6 +46,8 @@ public final class Constants {
     public static final int MANIPULATOR_JOYSTICK = 1;
     public static final class Shooter{
 
+        public static final double intakeSpeed = -0.2;
+
         public static final int ShooterMotorLeft=6;
         public static final int ShooterMotorRight=7;
         public static final int IntakeMotor=9;
@@ -72,7 +74,4 @@ public final class Constants {
 
 
 
-    public static final class intake{
-        public static final double intakeSpeed = -0.2;
-    }
 }
