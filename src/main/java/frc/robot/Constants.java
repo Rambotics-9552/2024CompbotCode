@@ -15,18 +15,15 @@ package frc.robot;
 public final class Constants {
 
     // bucket Constants
-    public final class bucket{
-        public static final int solenoidForwardPort = 5;
-        public static final int solenoidBackwardPort = 4; 
-    }
 
     // Motor Constants
     public static final class drive{
-        public static final int LEFT_MOTOR = 2;
-        public static final int REAR_LEFT_MOTOR = 2;
-        public static final int RIGHT_MOTOR = 0;
-        public static final int REAR_RIGHT_MOTOR = 5;
+        public static final int LEFT_MOTOR = 5;
+        public static final int REAR_LEFT_MOTOR = 4;
+        public static final int RIGHT_MOTOR = 3;
+        public static final int REAR_RIGHT_MOTOR = 2;
         public static final double DRIVE_SPEED_MULTIPLYER = .6;
+    
     }
 
     public static final class auto{
@@ -49,9 +46,9 @@ public final class Constants {
     public static final int MANIPULATOR_JOYSTICK = 1;
     public static final class Shooter{
 
-        public static final int Motor1Port=0;
-        public static final int Motor2Port=0;
-        public static final int indexMotor=0;
+        public static final int ShooterMotorLeft=6;
+        public static final int ShooterMotorRight=7;
+        public static final int IntakeMotor=9;
         public static final int beamBrakePort = 0;
 
 
@@ -59,7 +56,23 @@ public final class Constants {
         public static final double shootAmp=0.2;
         public static final double indexSpeed=0;
         public static final int minimumSpeed = 60;
+        public static final int Motor2Port = 0;
+        public static final int Motor1Port = 0;
+        public static int indexMotor;
+    }
+
+    public static final class Climber{
+
+        public static final double MotorUp = 0.2;
+        public static final double MotorDown = 0.2;
+
+        public static final int ClimberMotor=8;
     }
 
 
+
+
+    public static final class intake{
+        public static final double intakeSpeed = -0.2;
+    }
 }
