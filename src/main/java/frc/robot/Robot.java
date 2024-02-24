@@ -18,7 +18,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.AutoRoutines.DriveForward;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ClimbDown;
+import frc.robot.commands.ClimbUp;
+import frc.robot.commands.revFly;
 import frc.robot.commands.shootIndex;
+import frc.robot.subsystems.ClimbingArm;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Shooter;
 
@@ -32,15 +36,16 @@ import frc.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-
+  
 
   private final DriveBase m_driveSubsystem = new DriveBase();
   private final Shooter shooter = new Shooter();
   private final shootIndex shootIndex = new shootIndex(shooter);
+  private final ClimbingArm cArm = new ClimbingArm();
   //private NetworkTableEntry cameraSelection;
 
-  CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
-  CommandXboxController manipulatorJoystick = new CommandXboxController(Constants.MANIPULATOR_JOYSTICK);
+  private final CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
+  private final CommandXboxController manipulatorJoystick = new CommandXboxController(Constants.MANIPULATOR_JOYSTICK);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. 
    * @return */
@@ -51,13 +56,17 @@ public class Robot extends TimedRobot {
     m_driveSubsystem.setDefaultCommand(
       new ArcadeDrive(
             m_driveSubsystem,
-            () -> ((-movementJoystick.getLeftTriggerAxis() + movementJoystick.getRightTriggerAxis())),
-            () -> (-movementJoystick.getLeftX())
+            () -> ((-movementJoystick.getLeftY())),
+            () -> (-movementJoystick.getRightX())
       ));
     
   }
   private void configureButtonBindings() {
-    manipulatorJoystick.a().toggleOnTrue(shootIndex);
+    manipulatorJoystick.a().whileTrue(new ClimbUp(cArm));
+    manipulatorJoystick.b().whileTrue(new ClimbDown(cArm));
+    manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
+    manipulatorJoystick.rightTrigger().onTrue(new shootIndex(shooter));
+    manipulatorJoystick.leftBumper().whileTrue(new intakeFromSource());
     // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
   }
   /**
