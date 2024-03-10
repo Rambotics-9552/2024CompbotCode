@@ -23,12 +23,20 @@ public final class Constants {
         public static final int RIGHT_MOTOR = 3;
         public static final int REAR_RIGHT_MOTOR = 2;
         public static final double DRIVE_SPEED_MULTIPLYER = .6;
+        public static final double wheelRadius=0.0762;
+        public static final double gearRatio=6.145;
+        public static final double conversionFactor = wheelRadius*Math.PI*2/(gearRatio);
     
     }
 
     public static final class auto{
         public static final double AUTONOMOUS_FORWARD_SPEED = 0.6;
         public static final double AUTONOMOUS_BACK_SPEED = 0.4;
+        public static final String straightPID = null;
+        public static final double kd = 1;
+        public static final double ki = 0.05;
+        public static final double kp = 0.4;
+        public static final double tolerence=0.1;
     }
     
 
@@ -36,7 +44,8 @@ public final class Constants {
         public static final int intakeMotor1Port=0;
         public static final int intakeMotor2Port=0;
         public static final int beamBrakePort = Shooter.beamBrakePort;
-        public static final double intakeSpeed = 0.5;
+        public static final double intakeSpeed = 1;
+        public static final double indexSpeed  = 1;
     }
 
     

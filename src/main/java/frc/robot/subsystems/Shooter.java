@@ -19,8 +19,6 @@ public class Shooter extends SubsystemBase {
 
     MotorControllerGroup shootMotors = new MotorControllerGroup(Motor1, Motor2);
 
-    public final CANSparkMax indexMotor = new CANSparkMax(Constants.Shooter.indexMotor, MotorType.kBrushless);
-
     public final DigitalInput beamBrake = new DigitalInput(Constants.Shooter.beamBrakePort);
 
     public void Shoooter(){
@@ -35,9 +33,6 @@ public class Shooter extends SubsystemBase {
         shootMotors.set(Constants.Shooter.shootAmp);
     }
 
-    public void runIndex(){
-        indexMotor.set(Constants.Shooter.indexSpeed);
-    }
 
     public boolean FlyIsGoodForSpeaker(){
         return ((Motor1Encoder.getVelocity()+Motor2Encoder.getVelocity())/2<Constants.Shooter.minimumSpeed)&&(Math.abs(Motor1Encoder.getVelocity()-Motor2Encoder.getVelocity())>Constants.Shooter.minimumSpeed/10);

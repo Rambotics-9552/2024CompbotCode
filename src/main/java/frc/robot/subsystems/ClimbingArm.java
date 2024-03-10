@@ -2,12 +2,13 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimbingArm extends SubsystemBase {
-    private final CANSparkFlex Motor1 = new CANSparkFlex(Constants.Climber.ClimberMotor, MotorType.kBrushless);
+    private final CANSparkMax Motor1 = new CANSparkMax(Constants.Climber.ClimberMotor, MotorType.kBrushless);
 
     //private final RelativeEncoder Motor1Encoder = Motor1.getEncoder();
 

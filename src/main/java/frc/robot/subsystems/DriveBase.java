@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class DriveBase extends SubsystemBase {
@@ -29,7 +30,11 @@ public class DriveBase extends SubsystemBase {
   MotorControllerGroup m_LeftMotorGroup = new MotorControllerGroup(m_leftMoter, m_leftBackMotor);
   MotorControllerGroup m_RightMotorGroup = new MotorControllerGroup(m_rightMoter, m_rightBackMotor);
 
+  RelativeEncoder leftEncoder = m_leftMoter.getEncoder();
+  RelativeEncoder rightEncoder = m_rightMoter.getEncoder();
+
   private final DifferentialDrive m_RobotDrive = new DifferentialDrive(m_LeftMotorGroup, m_RightMotorGroup);
+  
 
 
 
@@ -39,6 +44,9 @@ public class DriveBase extends SubsystemBase {
     // inverts two motors so the drivetrain can run
     m_leftMoter.setInverted(true);
     m_leftBackMotor.setInverted(true);
+    leftEncoder.setPositionConversionFactor(Constants.drive.conversionFactor);
+    rightEncoder.setPositionConversionFactor(Constants.drive.conversionFactor);
+
 
 
 
@@ -46,5 +54,18 @@ public class DriveBase extends SubsystemBase {
 
   public void drive(final double ySpeed, final double rotateValue) {
     m_RobotDrive.arcadeDrive(ySpeed, -rotateValue);
+  }
+
+  public double getEncoder(){
+    return (leftEncoder.getPosition()+rightEncoder.getPosition())/2;
+  }
+
+  public void resetEncoder(){
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+  }
+
+  public void arcadeDrive(double leftSpeed, double rightSpeed){
+    m_RobotDrive.tankDrive(leftSpeed, rightSpeed);
   }
 }

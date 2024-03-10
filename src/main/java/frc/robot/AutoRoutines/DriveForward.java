@@ -5,9 +5,12 @@
 package frc.robot.AutoRoutines;
 
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveStraight;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.Constants;
 import frc.robot.commands.*;
 
@@ -21,11 +24,14 @@ public class DriveForward extends SequentialCommandGroup {
    * @param right      The control input for the right sight of the drive
    * @param driveSubsystem The driveSubsystem subsystem to drive
    */
-  public DriveForward(DriveBase drive) {
+  public DriveForward(DriveBase drive, Intake intake, Shooter shooter) {
     super(
-    new DriveStraight(drive, 1.75, Constants.auto.AUTONOMOUS_FORWARD_SPEED),
-
-    new DriveStraight(drive, 1., Constants.auto.AUTONOMOUS_BACK_SPEED)
+      new shootShooter(shooter, intake),
+      new ParallelRaceGroup(
+        new DriveStraight(drive, 3.6576),
+        new intake(intake)),
+      new DriveStraight(drive, -3.6576),
+      new shootShooter(shooter, intake)
     );
   }
 }

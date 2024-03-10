@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,13 +23,6 @@ import frc.robot.AutoRoutines.DriveForward;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.ClimbDown;
-import frc.robot.commands.ClimbUp;
-import frc.robot.commands.revFly;
-import frc.robot.subsystems.ClimbingArm;
-import frc.robot.subsystems.DriveBase;
-import frc.robot.subsystems.Shooter;
 
 
 /**
@@ -48,12 +43,14 @@ public class Robot extends TimedRobot {
   //private final revFly revFly = new revFly(shooter);
 
 
-  //private final Intake Intake = new Intake();
+  private final Intake intake = new Intake();
   //private final intake intake = new intake(Intake);
 
   //private final shootShooter shoot = new shootShooter(shooter);
 
   private final ClimbingArm cArm = new ClimbingArm();
+
+  SendableChooser<Integer> controlChooser = new SendableChooser<Integer>();
   //private NetworkTableEntry cameraSelection;
 
   private final CommandXboxController movementJoystick = new CommandXboxController(Constants.MOVEMENT_JOYSTICK);
@@ -64,21 +61,49 @@ public class Robot extends TimedRobot {
     // Configure the button bindings
   public Robot(){
     configureButtonBindings();
+
+    controlChooser.setDefaultOption("arcade :)", 0);
+    controlChooser.addOption("tank :(", 1);
+
+
+    SmartDashboard.putData("control type", controlChooser);
+    
       
-    m_driveSubsystem.setDefaultCommand(
-      new ArcadeDrive(
-            m_driveSubsystem,
-            () -> ((-movementJoystick.getLeftY())),
-            () -> (-movementJoystick.getRightX())
-      ));
+
     
   }
   private void configureButtonBindings() {
-    manipulatorJoystick.a().whileTrue(new ClimbUp(cArm));
-    manipulatorJoystick.b().whileTrue(new ClimbDown(cArm));
-    manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
-    manipulatorJoystick.rightTrigger().onTrue(new shootShooter(shooter));
-    manipulatorJoystick.leftBumper().whileTrue(new intakeFromSource(shooter));
+    while (controlChooser==null){}
+
+
+    if (controlChooser.getSelected()==0){
+      m_driveSubsystem.setDefaultCommand(
+        new ArcadeDrive(
+              m_driveSubsystem,
+              () -> ((-movementJoystick.getLeftTriggerAxis() + movementJoystick.getRightTriggerAxis())),
+              () -> (movementJoystick.getLeftX() )
+        ));
+
+      manipulatorJoystick.a().whileTrue(new ClimbUp(cArm));
+      manipulatorJoystick.b().whileTrue(new ClimbDown(cArm));
+      manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
+      manipulatorJoystick.rightTrigger().onTrue(new shootShooter(shooter, intake));
+    }
+
+    else if (controlChooser.getSelected()==1){
+      m_driveSubsystem.setDefaultCommand(
+        new TankDrive(
+              m_driveSubsystem,
+              () -> (movementJoystick.getLeftTriggerAxis()),
+              () -> (movementJoystick.getRightTriggerAxis())
+        ));
+
+      manipulatorJoystick.a().whileTrue(new ClimbUp(cArm));
+      manipulatorJoystick.b().whileTrue(new ClimbDown(cArm));
+      manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
+      manipulatorJoystick.rightTrigger().onTrue(new shootShooter(shooter, intake));
+    }
+
 
     // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
   }
@@ -89,7 +114,7 @@ public class Robot extends TimedRobot {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new DriveForward(m_driveSubsystem);
+    return new DriveForward(m_driveSubsystem, intake, shooter);
   }
   /**
    * This function is run when the robot is first started up and should be used for any
