@@ -10,15 +10,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase{
-    private final CANSparkMax intakeMotor1 = new CANSparkMax(Constants.intake.intakeMotor1Port, MotorType.kBrushless);
+    private final CANSparkMax intakeMotor1 = new CANSparkMax(Constants.intake.intakeMotorPort, MotorType.kBrushless);
 
 
     private final MotorControllerGroup intakeMotors = new MotorControllerGroup(intakeMotor1);
 
-    private final DigitalInput beamBreak = new DigitalInput(Constants.intake.beamBrakePort);
+    private DigitalInput beamBreak;
 
-    public Intake(){
-
+    public Intake(DigitalInput beamBreak){
+        this.beamBreak = beamBreak;
     }
 
     public boolean getBeamBreak(){

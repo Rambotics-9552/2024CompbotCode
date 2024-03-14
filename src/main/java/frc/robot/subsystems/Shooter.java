@@ -11,18 +11,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-    private final CANSparkFlex Motor1 = new CANSparkFlex(Constants.Shooter.Motor1Port, MotorType.kBrushless);
-    private final CANSparkFlex Motor2 = new CANSparkFlex(Constants.Shooter.Motor2Port, MotorType.kBrushless);
+    private final CANSparkFlex Motor1 = new CANSparkFlex(Constants.Shooter.ShooterMotorLeft, MotorType.kBrushless);
+    private final CANSparkFlex Motor2 = new CANSparkFlex(Constants.Shooter.ShooterMotorRight, MotorType.kBrushless);
 
     private final RelativeEncoder Motor1Encoder = Motor1.getEncoder();
     private final RelativeEncoder Motor2Encoder = Motor2.getEncoder();
 
     MotorControllerGroup shootMotors = new MotorControllerGroup(Motor1, Motor2);
 
-    public final DigitalInput beamBrake = new DigitalInput(Constants.Shooter.beamBrakePort);
+    private DigitalInput beamBrake;
 
-    public void Shoooter(){
+    public Shooter(DigitalInput beamBreak){
         Motor2.setInverted(true);
+        this.beamBrake = beamBreak;
     }
 
     public void runFlyForSpeaker(){
