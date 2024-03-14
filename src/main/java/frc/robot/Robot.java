@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -34,16 +35,16 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  
+  public DigitalInput beamBreak = new DigitalInput(Constants.Shooter.beamBrakePort);
 
   private final DriveBase m_driveSubsystem = new DriveBase();
   
-  private final Shooter shooter = new Shooter();
+  private final Shooter shooter = new Shooter(beamBreak);
 
   //private final revFly revFly = new revFly(shooter);
 
 
-  private final Intake intake = new Intake();
+  private final Intake intake = new Intake(beamBreak);
   //private final intake intake = new intake(Intake);
 
   //private final shootShooter shoot = new shootShooter(shooter);
@@ -60,11 +61,11 @@ public class Robot extends TimedRobot {
    * @return */
     // Configure the button bindings
   public Robot(){
-    configureButtonBindings();
 
     controlChooser.setDefaultOption("arcade :)", 0);
     controlChooser.addOption("tank :(", 1);
 
+    configureButtonBindings();
 
     SmartDashboard.putData("control type", controlChooser);
     

@@ -41,8 +41,7 @@ public final class Constants {
     
 
     public static final class intake{
-        public static final int intakeMotor1Port=0;
-        public static final int intakeMotor2Port=0;
+        public static final int intakeMotorPort=9;
         public static final int beamBrakePort = Shooter.beamBrakePort;
         public static final double intakeSpeed = 1;
         public static final double indexSpeed  = 1;
@@ -59,16 +58,13 @@ public final class Constants {
 
         public static final int ShooterMotorLeft=6;
         public static final int ShooterMotorRight=7;
-        public static final int IntakeMotor=9;
-        public static final int beamBrakePort = 0;
+        public static final int beamBrakePort = 2;
 
 
         public static final double shootSpeaker=1;
         public static final double shootAmp=0.2;
         public static final double indexSpeed=0;
         public static final int minimumSpeed = 60;
-        public static final int Motor2Port = 0;
-        public static final int Motor1Port = 0;
         public static int indexMotor;
     }
 
