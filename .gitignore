@@ -1,0 +1,7 @@
+
+/.gradle
+/.gradle
+*.class
+/build
+/.gradle
+*.lock
