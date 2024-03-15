@@ -15,10 +15,10 @@ public class Intake extends SubsystemBase{
 
     private final MotorControllerGroup intakeMotors = new MotorControllerGroup(intakeMotor1);
 
-    private final DigitalInput beamBreak = new DigitalInput(Constants.intake.beamBrakePort);
+    private DigitalInput beamBreak;
 
-    public Intake(){
-
+    public Intake(DigitalInput beamBreak){
+        this.beamBreak = beamBreak;
     }
 
     public boolean getBeamBreak(){
