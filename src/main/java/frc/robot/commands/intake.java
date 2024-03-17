@@ -16,6 +16,6 @@ public class intake extends Command{
 
     @Override
     public boolean isFinished(){
-        return intake.getBeamBreak();
+        return !intake.getBeamBreak();
     }
 }

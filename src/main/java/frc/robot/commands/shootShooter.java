@@ -30,7 +30,7 @@ public class shootShooter extends Command{
  
     @Override
     public boolean isFinished(){
-        if (!shooter.getBeamBreak()){
+        if (shooter.getBeamBreak()){
             count++;
         }
         return count>50;
