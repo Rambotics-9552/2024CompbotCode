@@ -17,9 +17,6 @@ public class shootShooter extends Command{
 
     @Override
     public void initialize(){
-        if (!shooter.getBeamBreak()){
-            CommandScheduler.getInstance().cancel(this);
-        }
         count=0;
     }
 

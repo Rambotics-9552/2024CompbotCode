@@ -65,9 +65,10 @@ public class Robot extends TimedRobot {
     controlChooser.setDefaultOption("arcade :)", 0);
     controlChooser.addOption("tank :(", 1);
 
-    configureButtonBindings();
+    
 
     SmartDashboard.putData("control type", controlChooser);
+    configureButtonBindings();
     
       
 
@@ -104,6 +105,7 @@ public class Robot extends TimedRobot {
       manipulatorJoystick.leftTrigger().whileTrue(new revFly(shooter));
       manipulatorJoystick.rightTrigger().onTrue(new shootShooter(shooter, intake));
     }
+
 
 
     // final JoystickButton manipulator_x = new JoystickButton(manipulatorJoystick, Button.kX.value);
